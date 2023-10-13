@@ -43,6 +43,10 @@ P.S. You can delete this when you're done too. It's your config now :)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Local code
+-- TODO: Put into plugin format for lazy.nvim
+require("local")
+
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -230,8 +234,9 @@ require('lazy').setup({
   --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
 }, {})
+
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -287,33 +292,6 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 -- Don't like this.
 -- vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 -- vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-
--- BEGIN Custom keymaps
-vim.keymap.set("n", "<Leader>e", vim.cmd.Ex)
-
--- Navigave buffers with <Ctrl-J> and <Ctrl-K>
--- Note that <C-J> gets messed up by /usr/share/vim/vimfiles/plugin/imaps.vim.
--- it is recommended to remove (or backup) that file if this binding isn't
--- working.
-vim.keymap.set('n', '<C-J>', ':bn<CR>')
-vim.keymap.set('n', '<C-K>', ':bp<CR>')
-vim.keymap.set('n', '<ESC>', ':noh<CR><ESC>')
-
--- Compile and run code in split window. The run_code function is in
--- ftconfig.lua
--- TODO: Uncomment when I add my plugin
--- vim.keymap.set('n', '<Leader>s', ':lua run_code(true)<CR>')
--- -- Test code
--- vim.keymap.set('n', '<Leader>t', ':lua test_code(false)<CR>')
--- -- Close window and run code
--- vim.keymap.set('n', '<Leader>f', ':lua run_code(false)<CR>')
---
--- -- Delete bottom right window. Useful for the above
--- vim.keymap.set('n', '<Leader>d', ':wincmd b | bd | wincmd p <CR>')
-
--- Brackets complete on enter.
-vim.keymap.set('i', '{<CR>', '{<CR>}<ESC>O')
--- END Custom keymaps
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
