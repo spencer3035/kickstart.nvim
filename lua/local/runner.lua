@@ -1,4 +1,3 @@
-print("Loading runner")
 -- Compile and run code in split window. The run_code function is in
 -- ftconfig.lua
 vim.keymap.set('n', '<Leader>s', ':lua run_code(true)<CR>')
