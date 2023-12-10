@@ -1,14 +1,3 @@
--- Compile and run code in split window. The run_code function is in
--- ftconfig.lua
-vim.keymap.set('n', '<Leader>s', ':lua run_code(true)<CR>')
--- Test code
-vim.keymap.set('n', '<Leader>t', ':lua test_code(false)<CR>')
--- Close window and run code
-vim.keymap.set('n', '<Leader>f', ':lua run_code(false)<CR>')
-
--- Delete bottom right window. Useful for the above
-vim.keymap.set('n', '<Leader>d', ':wincmd b | bd | wincmd p <CR>')
-
 local function contains(tbl)
     local ft = vim.bo.filetype
     for _, str in ipairs(tbl) do
@@ -91,7 +80,7 @@ local function get_test_command()
     end
 end
 
-function test_code(new_window)
+function Test_code(new_window)
     local test_cmd = get_test_command()
     if test_cmd ~= nil then
         if new_window then
