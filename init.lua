@@ -139,7 +139,7 @@ vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
 
 -- Configure how new splits should be opened
-vim.opt.splitright = true
+vim.opt.splitright = false
 vim.opt.splitbelow = true
 
 -- Sets how neovim will display certain whitespace characters in the editor.
@@ -230,6 +230,9 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+
+  -- Remember last position
+  { 'vladdoster/remember.nvim', config = [[ require('remember') ]] },
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -614,10 +617,10 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
+        clangd = {},
         -- gopls = {},
         -- pyright = {},
-        -- rust_analyzer = {},
+        rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -680,12 +683,12 @@ require('lazy').setup({
     cmd = { 'ConformInfo' },
     keys = {
       {
-        '<leader>f',
+        '<leader>q',
         function()
           require('conform').format { async = true, lsp_format = 'fallback' }
         end,
         mode = '',
-        desc = '[F]ormat buffer',
+        desc = '[Q] Format buffer',
       },
     },
     opts = {
@@ -784,7 +787,7 @@ require('lazy').setup({
           -- Accept ([y]es) the completion.
           --  This will auto-import if your LSP supports it.
           --  This will expand snippets if the LSP sent a snippet.
-          ['<C-y>'] = cmp.mapping.confirm { select = true },
+          ['<C-Space>'] = cmp.mapping.confirm { select = true },
 
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
@@ -795,7 +798,7 @@ require('lazy').setup({
           -- Manually trigger a completion from nvim-cmp.
           --  Generally you don't need this, because nvim-cmp will display
           --  completions whenever it has completion options available.
-          ['<C-Space>'] = cmp.mapping.complete {},
+          --['<C-Space>'] = cmp.mapping.complete {},
 
           -- Think of <c-l> as moving to the right of your snippet expansion.
           --  So if you have a snippet that's like:
