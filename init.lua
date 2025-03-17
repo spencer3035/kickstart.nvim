@@ -620,7 +620,7 @@ require('lazy').setup({
       local servers = {
         clangd = {},
         -- gopls = {},
-        -- pyright = {},
+        pyright = {},
         rust_analyzer = {},
         nil_ls = {},
         -- Not sure how to install this.
@@ -717,7 +717,7 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
+        python = { 'isort', 'black' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
