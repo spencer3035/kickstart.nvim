@@ -1,4 +1,4 @@
-vim.g.mapleader = " "
+vim.g.mapleader = ' '
 
 -- Convenience settings
 vim.opt.showmatch = true
@@ -12,7 +12,7 @@ vim.opt.softtabstop = 4
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 
-vim.opt.smartindent = true;
+vim.opt.smartindent = true
 
 -- Number settings
 vim.opt.number = true
@@ -26,20 +26,20 @@ vim.opt.termguicolors = true
 vim.opt.scrolloff = 8
 
 -- Primagen mappings
-vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
+vim.keymap.set('n', '<leader>e', vim.cmd.Ex)
 
 -- Move highlighted chunks around
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
 -- Keep cursor centered when jumping
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+vim.keymap.set('n', 'n', 'nzzzv')
+vim.keymap.set('n', 'N', 'Nzzzv')
 
 -- Paste text over existing text without changing active register
-vim.keymap.set("x", "<leader>p", [["_dP]])
+vim.keymap.set('x', '<leader>p', [["_dP]])
 
 -- Navigave buffers with <Ctrl-J> and <Ctrl-K>
 -- Note that <C-J> gets messed up by /usr/share/vim/vimfiles/plugin/imaps.vim.
