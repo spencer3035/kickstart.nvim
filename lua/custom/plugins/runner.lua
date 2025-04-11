@@ -30,6 +30,16 @@ local function get_dir(str)
   return dir
 end
 
+local function file_exists(filename)
+  local file = io.open(filename, 'r')
+  if file then
+    file:close()
+    return true
+  else
+    return false
+  end
+end
+
 local function run_code_new_window(run_cmd)
   -- Update current working window
   if run_cmd ~= '' then
@@ -70,6 +80,9 @@ local function get_test_command()
     if ft == 'rust' then
       test_cmd = 'cargo test'
       print('Setting test_cmd to ' .. test_cmd)
+    end
+    if file_exists 'Makefile' then
+      test_cmd = 'make'
     end
   end
 
@@ -138,6 +151,9 @@ local function get_run_command()
     end
     if ft == 'asm' then
       run_cmd = 'nasm -felf64 ' .. filename .. ' -o a.o && ld a.o && rm a.o && ./a.out'
+    end
+    if file_exists 'Makefile' then
+      run_cmd = 'make run'
     end
   end
 
