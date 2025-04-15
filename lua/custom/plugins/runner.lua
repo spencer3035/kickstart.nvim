@@ -123,6 +123,9 @@ local function get_run_command()
     if ft == 'cs' then
       run_cmd = 'dotnet run'
     end
+    if ft == 'lean' then
+      run_cmd = 'lean ' .. filename
+    end
     if ft == 'rust' then
       if dir == 'examples' then
         local length = string.len(base_file)
