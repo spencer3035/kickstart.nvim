@@ -696,14 +696,12 @@ require('lazy').setup({
         -- gopls = {},
         pyright = {},
         rust_analyzer = {},
-        rnix = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        ts_ls = {},
         jdtls = {},
         --
 
@@ -722,6 +720,15 @@ require('lazy').setup({
           },
         },
       }
+
+      local has_nix = vim.fn.executable 'nix'
+      local has_node = vim.fn.executable 'node'
+      if has_nix then
+        servers.rnix = {}
+      end
+      if has_node then
+        servers.ts_ls = {}
+      end
 
       -- Ensure the servers and tools above are installed
       --
