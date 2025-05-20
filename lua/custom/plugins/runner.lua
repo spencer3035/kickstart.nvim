@@ -40,7 +40,16 @@ local function file_exists(filename)
   end
 end
 
-local function run_code_new_window(run_cmd)
+-- Runs a given command in the command window
+local function run_command_in_window(run_cmd)
+  CloseCodeWindow()
+  if not run_cmd or run_cmd == '' then
+    print 'Empty run command'
+    return
+  else
+    print('Running ' .. run_cmd)
+  end
+
   -- Update current working window
   if run_cmd ~= '' then
     vim.cmd('vsplit | terminal ' .. run_cmd)
@@ -48,24 +57,6 @@ local function run_code_new_window(run_cmd)
     -- We could make this a stack
     vim.g['working_window_id'] = vim.call 'win_getid'
     vim.cmd 'wincmd l | wincmd R'
-  end
-end
-
-local function run_code_in_existing_window(run_cmd)
-  local current_window = vim.call 'win_getid'
-  -- Only close the current working window
-  if vim.g['working_window_id'] ~= nil then
-    local ret_val = vim.call('win_gotoid', vim.g['working_window_id'])
-    -- Only close value if we have a valid id.
-    if ret_val == 1 then
-      vim.cmd 'bd'
-      vim.call('win_gotoid', current_window)
-    end
-  end
-  if run_cmd == '' then
-    run_code_new_window(run_cmd)
-  else
-    run_code_new_window(run_cmd)
   end
 end
 
@@ -79,7 +70,6 @@ local function get_test_command()
     local ft = vim.bo.filetype
     if ft == 'rust' then
       test_cmd = 'cargo test'
-      print('Setting test_cmd to ' .. test_cmd)
     end
     if file_exists 'Makefile' then
       test_cmd = 'make'
@@ -90,19 +80,6 @@ local function get_test_command()
     return test_cmd
   else
     return nil
-  end
-end
-
-function Test_code(new_window)
-  local test_cmd = get_test_command()
-  if test_cmd ~= nil then
-    if new_window then
-      run_code_new_window(test_cmd)
-    else
-      run_code_in_existing_window(test_cmd)
-    end
-  else
-    print 'No test command specified'
   end
 end
 
@@ -167,15 +144,33 @@ local function get_run_command()
   end
 end
 
-function Run_code(new_window)
+-- Closes the code window if it is open
+function CloseCodeWindow()
+  local current_window = vim.call 'win_getid'
+  if vim.g['working_window_id'] ~= nil then
+    local ret_val = vim.call('win_gotoid', vim.g['working_window_id'])
+    -- Only close value if we have a valid id.
+    if ret_val == 1 then
+      vim.cmd 'bd!'
+      vim.call('win_gotoid', current_window)
+    end
+  end
+end
+
+function TestCode()
+  local test_cmd = get_test_command()
+  if test_cmd ~= nil then
+    run_command_in_window(test_cmd)
+  else
+    print 'No test command specified'
+  end
+end
+
+function RunCode()
   -- Use run_command if it is set
   local run_cmd = get_run_command()
   if run_cmd ~= nil then
-    if new_window then
-      run_code_new_window(run_cmd)
-    else
-      run_code_in_existing_window(run_cmd)
-    end
+    run_command_in_window(run_cmd)
   else
     print 'No run command was found'
   end

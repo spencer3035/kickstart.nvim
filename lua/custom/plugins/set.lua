@@ -51,12 +51,12 @@ vim.keymap.set('n', '<ESC>', ':noh<CR><ESC>')
 
 -- Compile and run code in split window.
 -- Test code
-vim.keymap.set('n', '<leader>t', ':lua Test_code(false)<CR>')
+vim.keymap.set('n', '<leader>t', ':lua TestCode()<CR>')
 -- Close window and run code
-vim.keymap.set('n', '<leader>f', ':lua Run_code(false)<CR>')
+vim.keymap.set('n', '<leader>f', ':lua RunCode()<CR>')
 
 -- Delete bottom right window. Useful for the above
-vim.keymap.set('n', '<leader>d', ':wincmd b | bd | wincmd p <CR>')
+vim.keymap.set('n', '<leader>d', ':lua CloseCodeWindow()<CR>')
 
 -- Brackets complete on enter.
 vim.keymap.set('i', '{<CR>', '{<CR>}<ESC>O')
