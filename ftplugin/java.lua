@@ -8,6 +8,8 @@ local lombok_path = mason_path .. '/lombok.jar'
 -- Define workspace path
 local workspace_path = home .. '/.local/share/nvim/java_workspace/'
 
+vim.keymap.set('i', '<C-p>', 'System.out.println("");<Left><Left><Left>')
+
 local config = {
 
   -- Configure `nvim-jdtls`
