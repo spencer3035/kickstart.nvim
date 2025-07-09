@@ -510,7 +510,7 @@ require('lazy').setup({
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-      { 'williamboman/mason.nvim', opts = {} },
+      { 'williamboman/mason.nvim', opts = { PATH = 'append' } },
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
@@ -699,7 +699,20 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        clangd = {},
+        clangd = {
+          settings = {
+            root_markers = {
+              '.clang-format',
+              './build/compile_commands.json',
+            },
+          },
+          cmd = {
+            'clangd',
+            '--clang-tidy',
+            '--fallback-style=llvm',
+            '--compile-commands-dir=./build',
+          },
+        },
         -- gopls = {},
         pyright = {},
         rust_analyzer = {},
@@ -793,7 +806,8 @@ require('lazy').setup({
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
+        -- local disable_filetypes = { c = true, cpp = true }
+        local disable_filetypes = {}
         if disable_filetypes[vim.bo[bufnr].filetype] then
           return nil
         else
@@ -805,6 +819,8 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        c = { 'clangd' },
+        cpp = { 'clangd' },
         -- Conform can also run multiple formatters sequentially
         python = { 'isort', 'black' },
         --
